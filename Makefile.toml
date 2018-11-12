@@ -1,0 +1,53 @@
+[env]
+VCPKGRS_DYNAMIC = "1"
+VCPKG_PATH = "${VCPKG_PATH}"
+PKG_CONFIG_ALLOW_CROSS = "1"
+
+[tasks.build-win-cargo]
+command = "cargo"
+args = ["build", "${RELEASE}", "--target=${TARGET}"]
+
+[tasks.build-win]
+script_runner = "@rust"
+script = [
+'''
+//! ```cargo
+//! [dependencies]
+//! walkdir = "2"
+//! glob = "0.2.11"
+//! fs_extra = "1.1"
+//! ```
+extern crate walkdir;
+extern crate glob;
+extern crate fs_extra;
+use walkdir::WalkDir;
+
+use glob::glob;
+
+fn main() {
+    for entry in WalkDir::new(std::path::Path::new(&std::env::current_dir().unwrap()).join("target")).into_iter().filter_map(|e| e.ok()) {
+        let path = entry.path();
+
+        let share_src = std::path::Path::new(&std::env::current_dir().unwrap()).join("assets").join("share");
+
+        if path.is_dir() && (path.file_name().unwrap() == "debug" || path.file_name().unwrap() == "release") {
+            let mut copy_opts = fs_extra::dir::CopyOptions::new();
+            copy_opts.overwrite = true;
+            fs_extra::dir::copy(share_src, path, &copy_opts).expect("unable to copy assets");
+            for entry in glob(&(String::from(path.to_str().expect("cannot convert path to str")) + "\\**\\*.dll")).expect("Failed to read glob pattern") {
+                match entry {
+                    Ok(dll_path) => {
+                        let target = path.join(dll_path.file_name().expect("cannot get dll name"));
+                        if dll_path != target {
+                            std::fs::copy(dll_path.clone(), target).expect("cannot copy file");
+                        }
+                    },
+                    Err(_) => panic!(),
+                }
+            }
+        }
+    }
+}
+'''
+]
+dependencies = ["build-win-cargo"]
