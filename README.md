@@ -11,4 +11,11 @@
 ### Build process
 
 1. Navigate to project folder
-2. Run build for desired configuration like: `cargo make build-win --env-file=.\environments\win64-release --env VCPKG_PATH=c:\path\to\vcpkg`  
+2. Run build for desired configuration like: `cargo make build-win --env-file=.\environments\win64-release --env VCPKG_PATH=c:\path\to\vcpkg`
+
+### TODO
+
+1. Make `package` job which would copy necessary release artifacts from `target/`
+2. Make sure that *nix builds are not broken 
+3. Make sure GLADE support works as intended
+4. Find a way to use `gtksourceview` and `webview` on Windows with minimal effort on compiling dependencies
