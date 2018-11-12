@@ -51,3 +51,5 @@ fn main() {
 '''
 ]
 dependencies = ["build-win-cargo"]
+
+[tasks.package-win]
