@@ -16,6 +16,6 @@
 ### TODO
 
 1. Make `package` job which would copy necessary release artifacts from `target/`
-2. Make sure that *nix builds are not broken 
+2. ~~Make sure that *nix builds are not broken~~
 3. ~~Make sure GLADE support works as intended~~
 4. Find a way to use `gtksourceview` and `webview` on Windows with minimal effort on compiling dependencies

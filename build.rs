@@ -1,5 +1,7 @@
+#[cfg(windows)]
 extern crate vcpkg;
 
+#[cfg(windows)]
 fn ensure_lib_file_win(lib_path: &str, src_name: &str, dst_name: &str) {
     let src_path = std::path::Path::new(lib_path).join(src_name);
     let dst_path = std::path::Path::new(lib_path).join(dst_name);
@@ -9,6 +11,7 @@ fn ensure_lib_file_win(lib_path: &str, src_name: &str, dst_name: &str) {
     }
 }
 
+#[cfg(windows)]
 fn win_main() {
     let target_triple = std::env::var("TARGET").unwrap();
     println!("{}", std::env::var("VCPKG_PATH").unwrap());
