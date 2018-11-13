@@ -5,10 +5,11 @@ authors = ["kykc"]
 build = "build.rs"
 
 [dependencies]
+gio = "^0.5"
 
 [target.'cfg(windows)'.build-dependencies]
 vcpkg = "0.2.6"
 
 [dependencies.gtk]
-version = "0.5.0"
+version = "^0.5"
 features = ["v3_20"]

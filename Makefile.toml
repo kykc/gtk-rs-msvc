@@ -3,9 +3,18 @@ VCPKGRS_DYNAMIC = "1"
 VCPKG_PATH = "${VCPKG_PATH}"
 PKG_CONFIG_ALLOW_CROSS = "1"
 
-[tasks.build-win-cargo]
+[tasks.build-win-cargo-debug]
+condition = {env_not_set = ["RELEASE"]}
 command = "cargo"
-args = ["build", "${RELEASE}", "--target=${TARGET}"]
+args = ["build", "--target=${TARGET}"]
+
+[tasks.build-win-cargo-release]
+condition = {env_set = ["RELEASE"]}
+command = "cargo"
+args = ["build", "--release", "--target=${TARGET}"]
+
+[tasks.build-win-cargo]
+dependencies = ["build-win-cargo-release", "build-win-cargo-debug"]
 
 [tasks.build-win]
 script_runner = "@rust"

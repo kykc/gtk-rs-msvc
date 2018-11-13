@@ -194,6 +194,7 @@ dependencies = [
 name = "gtk-rs-msvc"
 version = "0.1.0"
 dependencies = [
+ "gio 0.5.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "gtk 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "vcpkg 0.2.6 (registry+https://github.com/rust-lang/crates.io-index)",
 ]

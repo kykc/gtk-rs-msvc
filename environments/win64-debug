@@ -1,3 +1,2 @@
 VCPKG_PATH=C:\Bg\vcpkg\
-RELEASE=
 TARGET=x86_64-pc-windows-msvc
